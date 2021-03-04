@@ -27,3 +27,7 @@ Setup of a webhook in Slack is required.
     1. message -> REQUIRED ( defaults to 'Success!' for .success() )
     1. link -> OPTIONAL ( must be a fully formed URL, e.g., https://www.example.com )
     1. link_title -> OPTIONAL ( if link parameter is supplied but not link_title, link_title defaults to 'link' )
+
+## Examples
+
+<img width="384" alt="pyslack_examples" src="https://user-images.githubusercontent.com/6807526/110037044-debd6b00-7d0b-11eb-93e6-9d5ed344073f.png">
