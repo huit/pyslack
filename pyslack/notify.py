@@ -1,8 +1,24 @@
 import requests
 import json
 
+from enum import Enum
+
 DEFAULT_USERNAME = "Python Slack Notifications"
 DEFAULT_ICON_EMOJI = "slack"
+
+
+class Color(Enum):
+    SUCCESS = "#00b600"
+    INFO = "#7799b9"
+    ERROR = "#ef0000"
+    WARNING = "#ffce03"
+
+
+class Icon(Enum):
+    SUCCESS = "white_check_mark"
+    INFO = "information_source"
+    ERROR = "x"
+    WARNING = "warning"
 
 
 class NotificationService:
@@ -10,16 +26,6 @@ class NotificationService:
     Provides convenience methods for formatting of different types of messages sent to slack,
     including success(), info(), warning(), and error()
     """
-
-    COLOR_SUCCESS = "#00b600"
-    COLOR_INFO = "#7799b9"
-    COLOR_ERROR = "#ef0000"
-    COLOR_WARNING = "#ffce03"
-
-    ICON_SUCCESS = "white_check_mark"
-    ICON_INFO = "information_source"
-    ICON_ERROR = "x"
-    ICON_WARNING = "warning"
 
     def __init__(self, webhook: str, username: str = DEFAULT_USERNAME, icon_emoji: str = DEFAULT_ICON_EMOJI):
         """
@@ -48,7 +54,7 @@ class NotificationService:
         return self.BASE_SLACK_URL + self.webhook
 
     @staticmethod
-    def setup_fallback(icon, title, link=None, link_title="link"):
+    def setup_fallback(icon: str, title: str, link: str = None, link_title: str = "link"):
         """
         helper method
         :param icon:
@@ -85,6 +91,23 @@ class NotificationService:
             }
         ]
 
+    def send_msg(self, title: str, msg_color: Color, msg_icon: Icon, message: str, link: str = None,
+                 link_title: str = None):
+        """
+
+        :param title:
+        :param msg_color:
+        :param msg_icon:
+        :param message:
+        :param link:
+        :param link_title:
+        :return:
+        """
+        fallback = self.setup_fallback(msg_icon.value, title, link, link_title)
+        attachments = self.setup_attachments(msg_color.value, fallback, message)
+        requests.post(self.slack_url,
+                      data={"payload": self.slack_payload_with_attachments(attachments)})
+
     def success(self, title: str, message: str = "Success!", link: str = None, link_title: str = None):
         """
         Sends success message using COLOR_SUCCESS and ICON_SUCCESS
@@ -94,10 +117,7 @@ class NotificationService:
         :param link_title:
         :return:
         """
-        fallback = self.setup_fallback(self.ICON_SUCCESS, title, link, link_title)
-        attachments = self.setup_attachments(self.COLOR_SUCCESS, fallback, message)
-        requests.post(self.slack_url,
-                      data={"payload": self.slack_payload_with_attachments(attachments)})
+        self.send_msg(title, Color.SUCCESS, Icon.SUCCESS, message, link, link_title)
 
     def info(self, title: str, message: str, link: str = None, link_title: str = None):
         """
@@ -108,11 +128,7 @@ class NotificationService:
         :param link_title:
         :return:
         """
-
-        fallback = self.setup_fallback(self.ICON_INFO, title, link, link_title)
-        attachments = self.setup_attachments(self.COLOR_INFO, fallback, message)
-        requests.post(self.slack_url,
-                      data={"payload": self.slack_payload_with_attachments(attachments)})
+        self.send_msg(title, Color.INFO, Icon.INFO, message, link, link_title)
 
     def error(self, title: str, message: str, link: str = None, link_title: str = None):
         """
@@ -123,11 +139,7 @@ class NotificationService:
         :param link_title:
         :return:
         """
-
-        fallback = self.setup_fallback(self.ICON_ERROR, title, link, link_title)
-        attachments = self.setup_attachments(self.COLOR_ERROR, fallback, message)
-        requests.post(self.slack_url,
-                      data={"payload": self.slack_payload_with_attachments(attachments)})
+        self.send_msg(title, Color.ERROR, Icon.ERROR, message, link, link_title)
 
     def warning(self, title: str, message: str, link: str = None, link_title: str = None):
         """
@@ -138,7 +150,4 @@ class NotificationService:
         :param link_title:
         :return:
         """
-        fallback = self.setup_fallback(self.ICON_WARNING, title, link, link_title)
-        attachments = self.setup_attachments(self.COLOR_WARNING, fallback, message)
-        requests.post(self.slack_url,
-                      data={"payload": self.slack_payload_with_attachments(attachments)})
+        self.send_msg(title, Color.WARNING, Icon.WARNING, message, link, link_title)
