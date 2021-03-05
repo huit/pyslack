@@ -2,7 +2,10 @@
 
 A package to facilitate the use of a slack webhook for notifications.
 
+## Slack setup
+
 Setup of a webhook in Slack is required.
+See <a href="https://api.slack.com/messaging/webhooks">https://api.slack.com/messaging/webhooks
 
 ## Installation and Usage
 
@@ -18,15 +21,15 @@ Setup of a webhook in Slack is required.
     ns.error(title="ERROR TITLE", message="error message", link="https://www.example.com", link_title="Example.com")
 
 ### Instantiation Notes
-    1. <unique_id_for_slack_webhook> must be supplied by slack, and will be appended to "https://hooks.slack.com/services/"
-    1. <notification_username> can be any string, not necessarily an existing slack user
-    1. <emoji> must be a valid slack emoji name - do not include any ':' as it will automatically be wrapped ":<emoji>:"
+1. <unique_id_for_slack_webhook> must be supplied by slack, and will be appended to "https://hooks.slack.com/services/"
+1. <notification_username> can be any string, not necessarily an existing slack user
+1. <emoji> must be a valid slack emoji name - do not include any ':' as it will automatically be wrapped ":<emoji>:"
     
 ### Parameters
-    1. title -> REQUIRED
-    1. message -> REQUIRED ( defaults to 'Success!' for .success() )
-    1. link -> OPTIONAL ( must be a fully formed URL, e.g., https://www.example.com )
-    1. link_title -> OPTIONAL ( if link parameter is supplied but not link_title, link_title defaults to 'link' )
+1. title -> REQUIRED
+1. message -> REQUIRED ( defaults to 'Success!' for .success() )
+1. link -> OPTIONAL ( must be a fully formed URL, e.g., https://www.example.com )
+1. link_title -> OPTIONAL ( if link parameter is supplied but not link_title, link_title defaults to 'link' )
 
 ## Examples
 
