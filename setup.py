@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pyslack",
-    version="1.0.0",
+    version="1.0.2",
     author="Michael Kerry",
     author_email="michael_kerry@harvard.edu",
     description="A package to facilitate the use of slack webhook for notifications",
