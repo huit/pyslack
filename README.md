@@ -9,7 +9,9 @@ See <a href="https://api.slack.com/messaging/webhooks">https://api.slack.com/mes
 
 ## Installation and Usage
 
-    pip install git+https://github.com/huit/pyslack@v1.0.0
+    requires python >=3.6
+
+    pip install https://github.com/huit/pyslack/archive/v1.0.1.tar.gz
 
     from pyslack.notify import NotificationService 
 
