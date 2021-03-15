@@ -63,7 +63,9 @@ class NotificationService:
         :param link_title: OPTIONAL - if link is supplied, link_title defaults to 'link'
         :return:
         """
-        if link and link_title:
+        if link:
+            if not link_title:
+                link_title = "link"
             fallback = f" :{icon}: *{title}*: (<{link}|{link_title}>)"
         else:
             fallback = f" :{icon}: *{title}*"
