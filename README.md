@@ -9,7 +9,7 @@ See <a href="https://api.slack.com/messaging/webhooks">https://api.slack.com/mes
 
 ## Installation and Usage
 
-    requires python >=3.6
+    - requires python >=3.6
 
     pip install https://github.com/huit/pyslack/archive/v1.0.1.tar.gz
 
