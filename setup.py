@@ -24,5 +24,5 @@ setuptools.setup(
           'requests==2.25.1',
       ],
     packages=setuptools.find_packages(),
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )
